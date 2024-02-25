@@ -1,19 +1,8 @@
 import { execSync } from 'node:child_process'
 import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'url'
 
-execSync(
-  `sudo ln -sf "${process.execPath}" /usr/bin/node && ${resolve(
-    dirname(process.execPath),
-    'npm'
-  )} install -g yarn`,
-  {
-    stdio: 'inherit',
-    encoding: 'utf-8'
-  }
-)
+// Get the directory of the current script
+const dir = dirname(__filename);
 
-execSync(`yarn --cwd ${fileURLToPath(import.meta.resolve('..'))}`, {
-  stdio: 'inherit',
-  encoding: 'utf-8'
-})
+// Run npm install in the script's directory
+execSync('npm install', { cwd: dir, stdio: 'inherit' });
