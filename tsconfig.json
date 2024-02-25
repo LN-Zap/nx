@@ -5,10 +5,9 @@
     "outDir": "./dist",
     "declaration": true,
     "skipLibCheck": true,
-    "lib": ["ESNext"],
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "target": "es2017",
+    "module": "es2022",
+    "moduleResolution": "node",
   },
   "exclude": ["./dist", "./node_modules", "./__tests__", "./coverage"]
 }

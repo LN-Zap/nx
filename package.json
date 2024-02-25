@@ -3,7 +3,7 @@
   "description": "Github action for executing nx commands cached with @actions/cache",
   "version": "0.2.9",
   "author": "raegen",
-  "type": "module",
+  "type": "es2022",
   "homepage": "https://github.com/raegen/nx",
   "repository": {
     "type": "git",
@@ -31,7 +31,7 @@
     "format:write": "prettier --write **/*.ts",
     "format:check": "prettier --check **/*.ts",
     "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
-    "package": "npx @vercel/ncc build src/index.ts --license licenses.txt",
+    "package": "yarn tsc",
     "package:watch": "yarn run package -- --watch",
     "test": "jest --passWithNoTests",
     "all": "yarn run format:write && yarn run lint && yarn run test && yarn run coverage && yarn run package"
@@ -89,6 +89,6 @@
     "prettier-eslint": "^16.3.0",
     "ts-jest": "^29.1.2",
     "typescript": "^5.3.3",
-    "nx": "^17.2.8"
+    "nx": "^18.0.5"
   }
 }
