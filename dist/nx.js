@@ -3,7 +3,6 @@ import { join, resolve } from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'url';
 const getModule = (entry, from = resolve(process.cwd(), 'package.json')) => {
-    var _a;
     const name = entry.includes('/')
         ? entry.startsWith('@')
             ? entry.split('/').slice(0, 2).join('/')
@@ -12,8 +11,10 @@ const getModule = (entry, from = resolve(process.cwd(), 'package.json')) => {
     const require = createRequire(from);
     return {
         main: require.resolve(entry),
-        root: (_a = require.resolve
-            .paths(entry)) === null || _a === void 0 ? void 0 : _a.map(p => join(p, name)).find(p => existsSync(p))
+        root: require.resolve
+            .paths(entry)
+            ?.map(p => join(p, name))
+            .find(p => existsSync(p))
     };
 };
 const { root } = getModule('nx');

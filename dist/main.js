@@ -7,20 +7,26 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 const cacheDirectory = core.getInput('cacheDirectory') || resolve(cacheDir, 'remote');
 const targets = Array.from(new Set(Object.values((await createProjectGraphAsync()).nodes)
-    .map(({ data }) => Object.keys(data.targets || {}).filter(target => { var _a; return ((_a = data.targets) === null || _a === void 0 ? void 0 : _a[target].cache) !== false; }))
+    .map(({ data }) => Object.keys(data.targets || {}).filter(target => data.targets?.[target].cache !== false))
     .flat()));
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf-8'));
 const writeJson = async (path, content) => writeFile(path, JSON.stringify(content));
 const id = crypto.randomUUID();
 const overrideNxJson = async () => {
     const nxJson = await readJson(nxJsonPath);
-    await writeJson(nxJsonPath, Object.assign(Object.assign({}, nxJson), { tasksRunnerOptions: Object.assign(Object.assign({}, nxJson.tasksRunnerOptions), { [id]: {
+    await writeJson(nxJsonPath, {
+        ...nxJson,
+        tasksRunnerOptions: {
+            ...nxJson.tasksRunnerOptions,
+            [id]: {
                 runner,
                 options: {
                     cacheDirectory,
                     cacheableOperations: targets
                 }
-            } }) }));
+            }
+        }
+    });
     return {
         revert: async () => writeJson(nxJsonPath, nxJson)
     };

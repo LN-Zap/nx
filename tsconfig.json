@@ -4,10 +4,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "declaration": true,
-    "skipLibCheck": true,
-    "target": "es2017",
-    "module": "es2022",
-    "moduleResolution": "node",
+    "skipLibCheck": true
   },
   "exclude": ["./dist", "./node_modules", "./__tests__", "./coverage"]
 }
