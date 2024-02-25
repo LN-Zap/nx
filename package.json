@@ -31,7 +31,7 @@
     "format:write": "prettier --write **/*.ts",
     "format:check": "prettier --check **/*.ts",
     "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
-    "package": "tsc",
+    "package": "npx @vercel/ncc build src/index.ts --license licenses.txt",
     "package:watch": "yarn run package -- --watch",
     "test": "jest --passWithNoTests",
     "all": "yarn run format:write && yarn run lint && yarn run test && yarn run coverage && yarn run package"
